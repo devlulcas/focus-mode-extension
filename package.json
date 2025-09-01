@@ -1,0 +1,30 @@
+{
+  "name": "focus-mode-extension",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "popup.js",
+  "scripts": {
+    "build": "node esbuild.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/chrome": "^0.1.4",
+    "@types/node": "^24.3.0",
+    "@types/react-dom": "^19.1.9",
+    "esbuild": "0.25.9",
+    "nanoid": "^5.1.5",
+    "nanostores": "^1.0.1",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@nanostores/react": "github:nanostores/react",
+    "@types/react": "^19.1.12",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "valibot": "^1.1.0"
+  },
+  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac"
+}
