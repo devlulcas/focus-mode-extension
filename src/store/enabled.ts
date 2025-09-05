@@ -1,26 +1,40 @@
-import { atom } from "nanostores";
-import { useEffect } from "react";
-
-export const $enabledAtom = atom(true);
-
-export function toggleEnabled() {
-  const newState = !$enabledAtom.get();
-  $enabledAtom.set(newState);
-  return newState;
-}
+import { useEffect, useRef, useState } from "react";
+import {
+  getEnabled,
+  listenToEnabledStorageChanges,
+} from "../model/enabled-storage.js";
 
 export function useSyncEnabled() {
+  const [state, setState] = useState(false);
+  const firstLoad = useRef(true);
+
   useEffect(() => {
-    const listener = (changes: any) => {
-      if (changes.enabled) {
-        $enabledAtom.set(changes.enabled.newValue);
-      }
+    if (firstLoad.current === false) {
+      return;
+    }
+
+    const init = async () => {
+      const result = await getEnabled();
+      setState(result);
+      firstLoad.current = false;
     };
 
-    chrome.storage.onChanged.addListener(listener);
+    init();
 
     return () => {
-      chrome.storage.onChanged.removeListener(listener);
+      firstLoad.current = true;
     };
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = listenToEnabledStorageChanges((enabled) => {
+      setState(enabled);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  return state;
 }

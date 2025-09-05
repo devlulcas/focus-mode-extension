@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BlockedDialog } from "./src/component/blocked-dialog.js";
+import { BlockedDialog } from "./src/components/blocked-dialog.js";
 
 function App() {
   return (
@@ -11,6 +11,15 @@ function App() {
 }
 
 const rootEl = document.createElement("div");
-document.body.appendChild(rootEl);
+rootEl.id = "focus-mode-extension-root";
+document.documentElement.appendChild(rootEl);
 
-ReactDOM.createRoot(rootEl).render(<App />);
+const rootFocusModeExtension = document.getElementById(
+  "focus-mode-extension-root"
+);
+
+if (!rootFocusModeExtension) {
+  throw new Error("Root element not found");
+}
+
+ReactDOM.createRoot(rootFocusModeExtension).render(<App />);

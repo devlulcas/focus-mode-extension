@@ -1,21 +1,14 @@
-import { useStore } from "@nanostores/react";
 import React from "react";
 import { useAsync } from "../hooks/use-async.js";
 import { getCurrentActiveTab } from "../libs/tabs.js";
 import {
-  $blockedWebsitesAtom,
-  addCurrentActiveTabToBlockedWebsites,
-  removeFromBlockedWebsites,
+  toggleCurrentActiveTabBlocking,
+  useSyncBlockedWebsites,
 } from "../store/blocked-websites.js";
 
 export function BlockCurrentTabWebsite() {
-  const blockedWebsites = useStore($blockedWebsitesAtom);
-
+  const blockedWebsites = useSyncBlockedWebsites();
   const currentTabPromise = useAsync(getCurrentActiveTab);
-
-  const isBlocked = blockedWebsites.some(
-    (b) => b.domain === currentTabPromise.data?.url.hostname
-  );
 
   if (currentTabPromise.loading) {
     return <div>Loading...</div>;
@@ -31,17 +24,19 @@ export function BlockCurrentTabWebsite() {
     return null;
   }
 
+  const blockedWebsite = blockedWebsites.find(
+    (b) => b.domain === currentTab.url.hostname
+  );
+
+  const isBlocked = Boolean(blockedWebsite?.blocked);
+
   return (
     <button
       onClick={async () => {
-        if (isBlocked) {
-          await removeFromBlockedWebsites(currentTab.url.hostname);
-        } else {
-          await addCurrentActiveTabToBlockedWebsites();
-        }
+        await toggleCurrentActiveTabBlocking();
       }}
     >
-      {isBlocked ? "Unblock" : "Block"}
+      {isBlocked ? "Unblock" : "Block"} {currentTab.url.hostname}
     </button>
   );
 }
