@@ -6,6 +6,7 @@ import {
   deleteBlockedWebsite,
   toggleBlockedWebsite,
 } from "../store/blocked-websites.js";
+import { useGlobalAskQuestionDialog } from "./ask-question-dialog.js";
 import styles from "./blocked-website-list-item.module.css";
 import { Button } from "./button.js";
 
@@ -51,24 +52,40 @@ function Favicon({ website }: { website: Website }) {
 }
 
 function DeleteButton({ website }: { website: Website }) {
+  const ask = useGlobalAskQuestionDialog();
+
+  const handleClick = async () => {
+    ask.wrap({
+      fn: async () => {
+        await deleteBlockedWebsite(website.domain);
+      },
+    });
+  };
+
   return (
-    <Button
-      onClick={async () => await deleteBlockedWebsite(website.domain)}
-      data-variant="tertiary"
-      data-size="sm"
-    >
+    <Button onClick={handleClick} data-variant="tertiary" data-size="sm">
       Delete
     </Button>
   );
 }
 
 function UnblockButton({ website }: { website: Website }) {
+  const ask = useGlobalAskQuestionDialog();
+
+  const handleClick = async () => {
+    if (website.blocked) {
+      ask.wrap({
+        fn: async () => {
+          await toggleBlockedWebsite(website.domain);
+        },
+      });
+    } else {
+      await toggleBlockedWebsite(website.domain);
+    }
+  };
+
   return (
-    <Button
-      onClick={async () => await toggleBlockedWebsite(website.domain)}
-      data-variant="tertiary"
-      data-size="sm"
-    >
+    <Button onClick={handleClick} data-variant="tertiary" data-size="sm">
       {website.blocked ? "Unblock" : "Block"}
     </Button>
   );

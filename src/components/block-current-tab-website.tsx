@@ -5,6 +5,7 @@ import {
   toggleCurrentActiveTabBlocking,
   useSyncBlockedWebsites,
 } from "../store/blocked-websites.js";
+import { useGlobalAskQuestionDialog } from "./ask-question-dialog.js";
 import { Button } from "./button.js";
 
 export function BlockCurrentTabWebsite() {
@@ -19,8 +20,18 @@ export function BlockCurrentTabWebsite() {
 
   const isBlocked = Boolean(blockedWebsite?.blocked);
 
+  const ask = useGlobalAskQuestionDialog();
+
   const handleClick = async () => {
-    await toggleCurrentActiveTabBlocking();
+    if (isBlocked) {
+      ask.wrap({
+        fn: async () => {
+          await toggleCurrentActiveTabBlocking();
+        },
+      });
+    } else {
+      await toggleCurrentActiveTabBlocking();
+    }
   };
 
   if (currentTabPromise.loading) {
