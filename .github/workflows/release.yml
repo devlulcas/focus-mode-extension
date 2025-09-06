@@ -1,0 +1,96 @@
+name: Build and Release Extension
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g., v1.0.0)"
+        required: true
+        default: "v1.0.0"
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.12.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build extension
+        run: pnpm build
+
+      - name: Verify build output
+        run: |
+          echo "Build output contents:"
+          ls -la dist/
+          echo "Checking for required files:"
+          test -f dist/manifest.json || (echo "manifest.json missing" && exit 1)
+          test -f dist/popup.html || (echo "popup.html missing" && exit 1)
+          test -f dist/popup.js || (echo "popup.js missing" && exit 1)
+          test -f dist/content.js || (echo "content.js missing" && exit 1)
+          test -f dist/content.css || (echo "content.css missing" && exit 1)
+          echo "All required files present ✓"
+
+      - name: Create extension zip
+        run: |
+          cd dist
+          zip -r ../focus-mode-extension.zip .
+          cd ..
+          echo "Extension zip created:"
+          ls -la focus-mode-extension.zip
+
+      - name: Get version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: Focus Mode Extension ${{ steps.version.outputs.version }}
+          body: |
+            ## Focus Mode Extension ${{ steps.version.outputs.version }}
+
+            ### Installation
+            1. Download the `focus-mode-extension.zip` file
+            2. Extract the zip file
+            3. Open Chrome and go to `chrome://extensions/`
+            4. Enable "Developer mode" in the top right
+            5. Click "Load unpacked" and select the extracted folder
+
+            ### Changes
+            - See commit history for detailed changes
+
+            ### Files included
+            - `manifest.json` - Extension manifest
+            - `popup.html` - Extension popup interface
+            - `popup.js` - Popup functionality
+            - `content.js` - Content script
+            - `content.css` - Content script styles
+            - `popup.css` - Popup styles
+          files: focus-mode-extension.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
