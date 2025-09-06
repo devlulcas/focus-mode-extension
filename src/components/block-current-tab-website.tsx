@@ -5,38 +5,42 @@ import {
   toggleCurrentActiveTabBlocking,
   useSyncBlockedWebsites,
 } from "../store/blocked-websites.js";
+import { Button } from "./button.js";
 
 export function BlockCurrentTabWebsite() {
   const blockedWebsites = useSyncBlockedWebsites();
   const currentTabPromise = useAsync(getCurrentActiveTab);
 
+  const currentTab = currentTabPromise.data;
+
+  const blockedWebsite = blockedWebsites.find(
+    (b) => b.domain === currentTab?.url.hostname
+  );
+
+  const isBlocked = Boolean(blockedWebsite?.blocked);
+
+  const handleClick = async () => {
+    await toggleCurrentActiveTabBlocking();
+  };
+
   if (currentTabPromise.loading) {
-    return <div>Loading...</div>;
+    return <Button data-loading>Loading...</Button>;
   }
 
   if (currentTabPromise.error) {
-    return <div>Error</div>;
+    return <Button data-error>Error</Button>;
   }
-
-  const currentTab = currentTabPromise.data;
 
   if (!currentTab) {
     return null;
   }
 
-  const blockedWebsite = blockedWebsites.find(
-    (b) => b.domain === currentTab.url.hostname
-  );
-
-  const isBlocked = Boolean(blockedWebsite?.blocked);
-
   return (
-    <button
-      onClick={async () => {
-        await toggleCurrentActiveTabBlocking();
-      }}
+    <Button
+      data-variant={isBlocked ? "secondary" : "primary"}
+      onClick={handleClick}
     >
       {isBlocked ? "Unblock" : "Block"} {currentTab.url.hostname}
-    </button>
+    </Button>
   );
 }

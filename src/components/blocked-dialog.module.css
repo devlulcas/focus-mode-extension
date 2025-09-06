@@ -1,0 +1,131 @@
+@import "../assets/css/theme.css";
+
+.dialog {
+  appearance: none;
+  border: none;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  position: relative;
+  padding: 24px;
+  max-width: 600px;
+  min-height: clamp(200px, 50vh, 600px);
+  width: 90vw;
+
+  border-radius: 12px;
+  background-color: var(--fm-c-surface);
+  animation: slideInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 32px 64px -12px var(--fm-c-shadow),
+    0 0 0 1px var(--fm-c-outline-variant);
+
+  &:focus-visible,
+  &:focus-within,
+  &:focus {
+    outline: none;
+  }
+
+  &::backdrop {
+    backdrop-filter: blur(16px);
+    background-color: color-mix(in srgb, var(--fm-c-surface) 80%, transparent);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(
+      90deg,
+      var(--fm-c-primary),
+      var(--fm-c-secondary),
+      var(--fm-c-tertiary)
+    );
+  }
+}
+
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.iconContainer {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  background: linear-gradient(
+    135deg,
+    var(--fm-c-primary-container),
+    var(--fm-c-secondary-container)
+  );
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px var(--fm-c-primary) 20,
+    0 0 0 1px var(--fm-c-outline-variant);
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: linear-gradient(
+      135deg,
+      var(--fm-c-primary),
+      var(--fm-c-secondary)
+    );
+    z-index: -1;
+    opacity: 0.3;
+  }
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  color: var(--fm-c-on-primary-container);
+  filter: drop-shadow(0 2px 4px var(--fm-c-shadow));
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--fm-c-on-surface);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.description {
+  font-size: 16px;
+  color: var(--fm-c-on-surface-variant);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 320px;
+  margin: 0 auto;
+  text-wrap: balance;
+  text-align: center;
+}
+
+@media (prefers-contrast: high) {
+  .dialog {
+    border: 2px solid var(--fm-c-outline);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog {
+    animation: none;
+  }
+}

@@ -1,0 +1,81 @@
+@import "../assets/css/theme.css";
+
+.button {
+  background-color: var(--fm-button-color, var(--fm-c-primary));
+  color: var(--fm-button-color-foreground, var(--fm-c-on-primary));
+
+  padding-inline: var(--fm-button-px, 16px);
+  min-height: var(--fm-button-height, 46px);
+
+  border-radius: var(--fm-button-radius, 8px);
+  border: none;
+
+  font-size: var(--fm-button-font-size, 14px);
+  font-weight: var(--fm-button-font-weight, 500);
+  line-height: var(--fm-button-line-height, 1);
+
+  appearance: none;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  position: relative;
+  white-space: nowrap;
+  text-align: center;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Variants */
+.button[data-variant="primary"] {
+  --fm-button-color: var(--fm-c-primary);
+  --fm-button-color-foreground: var(--fm-c-on-primary);
+}
+
+.button[data-variant="secondary"] {
+  --fm-button-color: var(--fm-c-secondary);
+  --fm-button-color-foreground: var(--fm-c-on-secondary);
+}
+
+.button[data-variant="tertiary"] {
+  --fm-button-color: var(--fm-c-tertiary);
+  --fm-button-color-foreground: var(--fm-c-on-tertiary);
+}
+
+/* Sizes */
+.button[data-size="sm"] {
+  --fm-button-height: 36px;
+}
+
+.button[data-size="md"] {
+  --fm-button-height: 46px;
+}
+
+.button[data-size="lg"] {
+  --fm-button-height: 56px;
+}
+
+/* States */
+
+.button:hover {
+  filter: brightness(0.9);
+}
+
+.button:active {
+  filter: brightness(0.8);
+}
+
+.button[data-loading] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: brightness(0.5);
+}
+
+.button[data-error] {
+  --fm-button-color: var(--fm-c-error);
+  --fm-button-color-foreground: var(--fm-c-on-error);
+}

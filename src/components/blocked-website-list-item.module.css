@@ -1,0 +1,158 @@
+@import "../assets/css/theme.css";
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--fm-c-surface-container);
+  border-radius: 12px;
+  border: 1px solid var(--fm-c-outline-variant);
+  margin-bottom: 8px;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.listItem:hover {
+  background-color: var(--fm-c-surface-container-high);
+  border-color: var(--fm-c-outline);
+  box-shadow: 0 2px 8px var(--fm-c-shadow);
+  transform: translateY(-1px);
+}
+
+.listItem:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px var(--fm-c-shadow);
+}
+
+.favicon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--fm-c-outline-variant);
+  flex-shrink: 0;
+  background-color: var(--fm-c-surface-container-low);
+
+  &.defaultFavicon {
+    color: var(--fm-c-on-surface-variant);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+  }
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--fm-c-on-surface);
+  margin: 0;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.domain {
+  font-size: 14px;
+  color: var(--fm-c-on-surface-variant);
+  margin: 0;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.blocked {
+  background-color: var(--fm-c-surface-container-low);
+  border-color: var(--fm-c-outline);
+  opacity: 0.7;
+}
+
+.blocked:hover {
+  background-color: var(--fm-c-surface-container);
+  border-color: var(--fm-c-outline);
+  opacity: 0.8;
+}
+
+.blocked .title {
+  color: var(--fm-c-on-surface);
+  text-decoration: line-through;
+}
+
+.blocked .domain {
+  color: var(--fm-c-on-surface-variant);
+  opacity: 0.6;
+}
+
+/* Ripple effect */
+.listItem::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: var(--fm-c-primary);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease-out, height 0.3s ease-out, opacity 0.3s ease-out;
+  pointer-events: none;
+}
+
+.listItem:active::before {
+  width: 200px;
+  height: 200px;
+  opacity: 0.1;
+}
+
+/* Focus styles for accessibility */
+.listItem:focus-within {
+  outline: 2px solid var(--fm-c-primary);
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .listItem {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .favicon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .domain {
+    font-size: 12px;
+  }
+
+  .actions {
+    gap: 6px;
+  }
+}

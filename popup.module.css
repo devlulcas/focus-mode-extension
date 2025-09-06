@@ -1,0 +1,201 @@
+@import "./src/assets/css/theme.css";
+
+.app {
+  --height: 500px;
+  --header-height: 100px;
+  --content-height: calc(var(--height) - var(--header-height));
+
+  width: 400px;
+  height: var(--height);
+  background-color: var(--fm-c-background);
+  color: var(--fm-c-on-background);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.header {
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid var(--fm-c-outline-variant);
+  background-color: var(--fm-c-surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--header-height);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--fm-c-on-surface);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--fm-c-on-surface-variant);
+  margin: 4px 0 0 0;
+  line-height: 1.4;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 16px 24px 24px 24px;
+  gap: 20px;
+  height: var(--content-height);
+  overflow-y: auto;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--fm-c-on-surface);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.sectionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Focus styles for accessibility */
+.app:focus-within {
+  outline: none;
+}
+
+/* Smooth transitions */
+.app {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Loading state */
+.app[data-loading] {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.app[data-loading]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 3px solid var(--fm-c-outline-variant);
+  border-top: 3px solid var(--fm-c-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 100;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error state */
+.app[data-error] {
+  border: 2px solid var(--fm-c-error);
+}
+
+.app[data-error] .header {
+  background-color: var(--fm-c-error-container);
+  border-bottom-color: var(--fm-c-error);
+}
+
+.app[data-error] .title {
+  color: var(--fm-c-on-error-container);
+}
+
+/* Success state */
+.app[data-success] {
+  border: 2px solid var(--fm-c-primary);
+}
+
+/* Animation for popup appearance */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.app {
+  animation: slideIn 0.2s ease-out;
+}
+
+/* Scrollbar styling for content area */
+.content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: var(--fm-c-outline-variant);
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: var(--fm-c-outline);
+}
+
+/* Firefox scrollbar */
+.content {
+  scrollbar-width: thin;
+  scrollbar-color: var(--fm-c-outline-variant) transparent;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .app {
+    border: 2px solid var(--fm-c-outline);
+  }
+
+  .header {
+    border-bottom-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .app {
+    animation: none;
+  }
+
+  .app[data-loading]::after {
+    animation: none;
+  }
+
+  .app {
+    transition: none;
+  }
+}
