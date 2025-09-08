@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { LucideRefreshCcw } from "lucide-react";
 import React, {
   createContext,
   useCallback,
@@ -105,14 +106,27 @@ export function useGlobalAskQuestionDialog() {
 
 function AskQuestionDialogUI() {
   const [state, setState] = useGlobalAskQuestionDialogInternal();
-
-  const handleClose = () => {
-    setState(DEFAULTS);
-  };
-
   const [userAnswer, setUserAnswer] = useState<string>("");
   const [submitted, setSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+
+  const handleClose = () => {
+    setUserAnswer("");
+    setSubmitted(false);
+    setIsCorrect(false);
+    setState(DEFAULTS);
+  };
+
+  const changeChallenge = () => {
+    setUserAnswer("");
+    setSubmitted(false);
+    setIsCorrect(false);
+    const trivia = generateMathQuestion();
+    setState({
+      ...state,
+      trivia,
+    });
+  };
 
   const answer = useMemo(() => {
     const intl = new Intl.NumberFormat("en-US", {
@@ -135,19 +149,9 @@ function AskQuestionDialogUI() {
   };
 
   useEffect(() => {
-    if (!submitted) {
-      return;
+    if (isCorrect && submitted && state.onConfirm) {
+      state.onConfirm();
     }
-
-    const timeout = setTimeout(() => {
-      if (isCorrect) {
-        state.onConfirm?.();
-      } else {
-        state.onCancel?.();
-      }
-    }, 10_000);
-
-    return () => clearTimeout(timeout);
   }, [isCorrect, submitted]);
 
   if (!state.isOpen) {
@@ -165,8 +169,17 @@ function AskQuestionDialogUI() {
       }}
     >
       <div className={styles.container}>
-        <h2 className={styles.title}>Math Challenge</h2>
-        <p className={styles.question}>{state.trivia.question} = ?</p>
+        <div className={styles.questionWrapper}>
+          <p className={styles.question}>{state.trivia.question} = ?</p>
+          <Button
+            className={styles.refreshButton}
+            onClick={changeChallenge}
+            type="button"
+            aria-label="Change Challenge"
+          >
+            <LucideRefreshCcw />
+          </Button>
+        </div>
 
         {submitted && (
           <p
@@ -191,6 +204,7 @@ function AskQuestionDialogUI() {
             placeholder="Enter your answer"
             disabled={submitted}
           />
+
           <div className={styles.buttonGroup}>
             <Button
               onClick={handleSubmit}

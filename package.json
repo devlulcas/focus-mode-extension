@@ -1,10 +1,10 @@
 {
   "name": "focus-mode-extension",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "popup.js",
   "scripts": {
-    "build": "node esbuild.config.js",
+    "build": "node --experimental-strip-types esbuild.config.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,12 +15,14 @@
     "@types/node": "^24.3.0",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
+    "c12": "^3.2.0",
     "esbuild": "0.25.9",
     "typescript": "^5.9.2"
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "expr-eval": "^2.0.2",
+    "lucide-react": "^0.542.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "valibot": "^1.1.0"

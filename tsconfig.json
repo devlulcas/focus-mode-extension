@@ -29,6 +29,13 @@
     // JS
     "allowJs": true,
     "checkJs": true,
-    "noEmit": true
+    "noEmit": true,
+
+    // JSON
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+
+    // Emit
+    "outDir": "dist"
   }
 }

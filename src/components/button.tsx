@@ -4,9 +4,9 @@ import styles from "./button.module.css";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function Button({ children, ...props }: ButtonProps) {
+export function Button({ children, className, ...props }: ButtonProps) {
   return (
-    <button className={clsx(styles.button, props.className)} {...props}>
+    <button className={clsx(styles.button, className)} {...props}>
       {children}
     </button>
   );

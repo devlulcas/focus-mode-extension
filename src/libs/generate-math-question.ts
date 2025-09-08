@@ -10,7 +10,7 @@ function randomOperator() {
 }
 
 export function generateMathQuestion(): { question: string; answer: number } {
-  const howManyNumbers = randomNumber(2, 6);
+  const howManyNumbers = randomNumber(2, 4);
   const howManyOperators = howManyNumbers - 1;
 
   const question = Array.from(
@@ -21,7 +21,6 @@ export function generateMathQuestion(): { question: string; answer: number } {
   ).join(" ");
 
   // dumb and fast, no type safety, no security, no checks
-
   const parser = new Parser();
   const answer = parser.parse(question).evaluate();
 

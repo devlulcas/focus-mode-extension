@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { LucideTrash2 } from "lucide-react";
 import React, { useState } from "react";
 import { defaultFavicon } from "../model/favicon.js";
 import type { Website } from "../model/website.js";
@@ -63,8 +64,15 @@ function DeleteButton({ website }: { website: Website }) {
   };
 
   return (
-    <Button onClick={handleClick} data-variant="tertiary" data-size="sm">
-      Delete
+    <Button
+      onClick={handleClick}
+      data-variant="destructive"
+      data-size="sm"
+      aria-label="Delete"
+      data-icon
+      style={{ borderRadius: "var(--fm-c-radius-sm)" }}
+    >
+      <LucideTrash2 size={16} />
     </Button>
   );
 }
@@ -85,7 +93,13 @@ function UnblockButton({ website }: { website: Website }) {
   };
 
   return (
-    <Button onClick={handleClick} data-variant="tertiary" data-size="sm">
+    <Button
+      onClick={handleClick}
+      data-variant="tertiary"
+      data-size="sm"
+      aria-label="Unblock"
+      style={{ borderRadius: "var(--fm-c-radius-sm)" }}
+    >
       {website.blocked ? "Unblock" : "Block"}
     </Button>
   );

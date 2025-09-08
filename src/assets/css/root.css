@@ -1,0 +1,6 @@
+@import "./theme.css";
+@import "./reset.css";
+
+* {
+  font-family: var(--fm-font-sans);
+}

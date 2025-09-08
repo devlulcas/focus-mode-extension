@@ -8,3 +8,13 @@
   flex-direction: column;
   gap: 8px;
 }
+
+.empty {
+  text-align: center;
+  color: var(--fm-color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-block: 16px;
+}

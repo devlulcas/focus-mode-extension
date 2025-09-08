@@ -1,4 +1,4 @@
-@import "./src/assets/css/theme.css";
+@import "../../assets/css/theme.css";
 
 .app {
   --height: 500px;

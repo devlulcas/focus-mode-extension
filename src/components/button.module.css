@@ -7,7 +7,7 @@
   padding-inline: var(--fm-button-px, 16px);
   min-height: var(--fm-button-height, 46px);
 
-  border-radius: var(--fm-button-radius, 8px);
+  border-radius: var(--fm-c-radius);
   border: none;
 
   font-size: var(--fm-button-font-size, 14px);
@@ -46,6 +46,11 @@
   --fm-button-color-foreground: var(--fm-c-on-tertiary);
 }
 
+.button[data-variant="destructive"] {
+  --fm-button-color: var(--fm-c-destructive);
+  --fm-button-color-foreground: var(--fm-c-on-destructive);
+}
+
 /* Sizes */
 .button[data-size="sm"] {
   --fm-button-height: 36px;
@@ -57,6 +62,11 @@
 
 .button[data-size="lg"] {
   --fm-button-height: 56px;
+}
+
+.button[data-icon] {
+  padding-inline: 0;
+  aspect-ratio: 1 / 1;
 }
 
 /* States */

@@ -1,13 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import styles from "./popup.module.css";
-import { BlockCurrentTabWebsite } from "./src/components/block-current-tab-website.js";
-import { BlockWebsiteList } from "./src/components/block-website-list.js";
-import { ToggleBlocker } from "./src/components/toggle-blocker.js";
-
-import "./src/assets/css/reset.css";
-import "./src/assets/css/theme.css";
-import { GlobalAskQuestionDialogProvider } from "./src/components/ask-question-dialog.js";
+import { GlobalAskQuestionDialogProvider } from "../../components/ask-question-dialog.js";
+import { BlockCurrentTabWebsite } from "../../components/block-current-tab-website.js";
+import { BlockWebsiteList } from "../../components/block-website-list.js";
+import { ToggleBlocker } from "../../components/toggle-blocker.js";
+import { renderExtension } from "../../libs/render-extension.ts";
+import styles from "./index.module.css";
 
 function App() {
   return (
@@ -46,10 +43,4 @@ function App() {
   );
 }
 
-const rootEl = document.getElementById("root");
-
-if (!rootEl) {
-  throw new Error("Root element not found");
-}
-
-ReactDOM.createRoot(rootEl).render(<App />);
+renderExtension(<App />);
