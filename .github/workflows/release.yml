@@ -43,14 +43,6 @@ jobs:
           test -f dist/manifest.json || (echo "manifest.json missing" && exit 1)
           echo "Manifest is present"
 
-      - name: Create extension zip
-        run: |
-          cd dist
-          zip -r ../focus-mode-extension.zip .
-          cd ..
-          echo "Extension zip created:"
-          ls -la focus-mode-extension.zip
-
       - name: Get version
         id: version
         run: |
@@ -59,6 +51,14 @@ jobs:
           else
             echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
           fi
+
+      - name: Create extension zip
+        run: |
+          cd dist
+          zip -r ../focus-mode-extension-${{ steps.version.outputs.version }}.zip .
+          cd ..
+          echo "Extension zip created:"
+          ls -la focus-mode-extension-${{ steps.version.outputs.version }}.zip
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
@@ -69,7 +69,7 @@ jobs:
             ## Focus Mode Extension ${{ steps.version.outputs.version }}
 
             ### Installation
-            1. Download the `focus-mode-extension.zip` file
+            1. Download the `focus-mode-extension-${{ steps.version.outputs.version }}.zip` file
             2. Extract the zip file
             3. Open Chrome and go to `chrome://extensions/`
             4. Enable "Developer mode" in the top right
@@ -77,15 +77,7 @@ jobs:
 
             ### Changes
             - See commit history for detailed changes
-
-            ### Files included
-            - `manifest.json` - Extension manifest
-            - `popup.html` - Extension popup interface
-            - `popup.js` - Popup functionality
-            - `content.js` - Content script
-            - `content.css` - Content script styles
-            - `popup.css` - Popup styles
-          files: focus-mode-extension.zip
+          files: focus-mode-extension-${{ steps.version.outputs.version }}.zip
           draft: false
           prerelease: false
         env:
