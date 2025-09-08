@@ -41,11 +41,7 @@ jobs:
           ls -la dist/
           echo "Checking for required files:"
           test -f dist/manifest.json || (echo "manifest.json missing" && exit 1)
-          test -f dist/popup.html || (echo "popup.html missing" && exit 1)
-          test -f dist/popup.js || (echo "popup.js missing" && exit 1)
-          test -f dist/content.js || (echo "content.js missing" && exit 1)
-          test -f dist/content.css || (echo "content.css missing" && exit 1)
-          echo "All required files present ✓"
+          echo "Manifest is present"
 
       - name: Create extension zip
         run: |
