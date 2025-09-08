@@ -9,7 +9,12 @@ function randomOperator() {
   return operators[randomNumber(0, operators.length - 1)];
 }
 
-export function generateMathQuestion(): { question: string; answer: number } {
+export type Trivia = {
+  question: string;
+  answer: number;
+};
+
+export function generateMathQuestion(): Trivia {
   const howManyNumbers = randomNumber(2, 4);
   const howManyOperators = howManyNumbers - 1;
 
