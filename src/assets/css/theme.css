@@ -17,6 +17,8 @@
   --fm-c-error-container: rgb(147 0 10);
   --fm-c-destructive: rgb(255 180 171);
   --fm-c-on-destructive: rgb(105 0 5);
+  --fm-c-success: rgb(161 240 145);
+  --fm-c-on-success: rgb(0 39 22);
   --fm-c-on-error-container: rgb(255 218 214);
   --fm-c-background: rgb(17 20 24);
   --fm-c-on-background: rgb(225 226 232);

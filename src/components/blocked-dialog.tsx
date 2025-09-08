@@ -1,7 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSyncBlockedWebsites } from "../store/blocked-websites.js";
 import { useSyncEnabled } from "../store/enabled.js";
 import styles from "./blocked-dialog.module.css";
+
+function pauseMedia() {
+  const videoEls = document.querySelectorAll("video");
+  const audioEls = document.querySelectorAll("audio");
+  const elsWithPause = [...Array.from(videoEls), ...Array.from(audioEls)];
+
+  elsWithPause.forEach((el) => {
+    if (el.paused === false) {
+      el.pause();
+    }
+  });
+}
+
+function createWindowScrollBlocker() {
+  const computedStyle = window.getComputedStyle(document.body);
+
+  const previous = {
+    overflow: computedStyle.overflow,
+    height: computedStyle.height,
+    width: computedStyle.width,
+  };
+
+  const reset = () => {
+    document.body.style.overflow = previous.overflow;
+    document.body.style.height = previous.height;
+    document.body.style.width = previous.width;
+  };
+
+  const block = () => {
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100vh";
+    document.body.style.width = "100vw";
+  };
+
+  return {
+    reset,
+    block,
+  };
+}
+
+const windowScrollBlocker = createWindowScrollBlocker();
 
 export function BlockedDialog() {
   const blockedWebsites = useSyncBlockedWebsites();
@@ -12,6 +53,15 @@ export function BlockedDialog() {
   );
 
   const isBlocked = currentDocumentIsBlocked && enabled;
+
+  useEffect(() => {
+    if (isBlocked) {
+      windowScrollBlocker.block();
+      pauseMedia();
+    } else {
+      windowScrollBlocker.reset();
+    }
+  }, [isBlocked]);
 
   if (!isBlocked) {
     return null;

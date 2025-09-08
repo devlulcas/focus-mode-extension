@@ -83,13 +83,9 @@ export function useGlobalAskQuestionDialog() {
         if (options.fn) {
           options.fn();
         }
-
-        setState(DEFAULTS);
       };
 
       const trivia = generateMathQuestion();
-
-      console.log(trivia);
 
       setState({
         isOpen: true,
@@ -107,26 +103,31 @@ export function useGlobalAskQuestionDialog() {
 function AskQuestionDialogUI() {
   const [state, setState] = useGlobalAskQuestionDialogInternal();
   const [userAnswer, setUserAnswer] = useState<string>("");
-  const [submitted, setSubmitted] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
 
-  const handleClose = () => {
+  const [formState, setFormState] = useState<"idle" | "correct" | "incorrect">(
+    "idle"
+  );
+
+  const resetFormState = useCallback(() => {
     setUserAnswer("");
-    setSubmitted(false);
-    setIsCorrect(false);
+    setFormState("idle");
+  }, []);
+
+  const handleClose = useCallback(() => {
+    resetFormState();
     setState(DEFAULTS);
-  };
+  }, [resetFormState, setState]);
 
-  const changeChallenge = () => {
-    setUserAnswer("");
-    setSubmitted(false);
-    setIsCorrect(false);
+  const changeChallenge = useCallback(() => {
+    resetFormState();
+
     const trivia = generateMathQuestion();
-    setState({
-      ...state,
+
+    setState((prev) => ({
+      ...prev,
       trivia,
-    });
-  };
+    }));
+  }, [resetFormState, setState]);
 
   const answer = useMemo(() => {
     const intl = new Intl.NumberFormat("en-US", {
@@ -137,22 +138,25 @@ function AskQuestionDialogUI() {
     return intl.format(state.trivia.answer);
   }, [state.trivia.answer]);
 
-  const handleSubmit = () => {
-    if (userAnswer === "") {
-      return;
-    }
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    const isCorrect = userAnswer === answer;
+      if (userAnswer === "") {
+        return;
+      }
 
-    setSubmitted(true);
-    setIsCorrect(isCorrect);
-  };
+      const isCorrect = userAnswer === answer;
 
-  useEffect(() => {
-    if (isCorrect && submitted && state.onConfirm) {
-      state.onConfirm();
-    }
-  }, [isCorrect, submitted]);
+      if (isCorrect && state.onConfirm) {
+        state.onConfirm?.();
+      }
+
+      setFormState(isCorrect ? "correct" : "incorrect");
+    },
+    [userAnswer, answer, setFormState, state.onConfirm]
+  );
 
   if (!state.isOpen) {
     return null;
@@ -168,7 +172,7 @@ function AskQuestionDialogUI() {
         }
       }}
     >
-      <div className={styles.container}>
+      <form className={styles.container} onSubmit={handleSubmit}>
         <div className={styles.questionWrapper}>
           <p className={styles.question}>{state.trivia.question} = ?</p>
           <Button
@@ -176,22 +180,19 @@ function AskQuestionDialogUI() {
             onClick={changeChallenge}
             type="button"
             aria-label="Change Challenge"
+            disabled={formState === "incorrect"}
           >
             <LucideRefreshCcw />
           </Button>
         </div>
 
-        {submitted && (
-          <p
-            className={clsx(
-              styles.result,
-              isCorrect ? styles.correct : styles.incorrect
-            )}
-          >
-            {isCorrect
-              ? "Correct! Well done!"
-              : `Incorrect! The answer is ${answer}`}
-          </p>
+        {formState === "correct" && <SuccessParagraph />}
+
+        {formState === "incorrect" && (
+          <IncorrectParagraph
+            answer={answer}
+            changeChallenge={changeChallenge}
+          />
         )}
 
         <div className={styles.inputContainer}>
@@ -202,27 +203,87 @@ function AskQuestionDialogUI() {
             autoFocus
             className={styles.input}
             placeholder="Enter your answer"
-            disabled={submitted}
+            disabled={formState === "incorrect"}
           />
 
           <div className={styles.buttonGroup}>
             <Button
-              onClick={handleSubmit}
+              type="submit"
               data-variant="primary"
-              disabled={userAnswer === "" || submitted}
+              disabled={userAnswer === "" || formState === "incorrect"}
             >
               Submit
             </Button>
             <Button
+              type="button"
               onClick={handleClose}
               data-variant="secondary"
-              disabled={submitted}
+              disabled={formState === "incorrect"}
             >
-              Cancel
+              {formState === "correct" ? "Close" : "Cancel"}
             </Button>
           </div>
         </div>
-      </div>
+      </form>
     </dialog>
   );
+}
+
+function SuccessParagraph() {
+  const [_, setState] = useGlobalAskQuestionDialogInternal();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setState(DEFAULTS);
+    }, 800);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [setState]);
+
+  return (
+    <p className={clsx(styles.result, styles.correct)}>
+      Correct! Well done! This will be automatically closed!
+    </p>
+  );
+}
+
+type IncorrectParagraphProps = {
+  answer: string;
+  changeChallenge: () => void;
+};
+
+function IncorrectParagraph({
+  answer,
+  changeChallenge,
+}: IncorrectParagraphProps) {
+  const STEP_TIME = 1;
+
+  const WRONG_ANSWER_RESET_TIME = 5;
+
+  const [wrongAnswerResetTime, setWrongAnswerResetTime] = useState<number>(
+    WRONG_ANSWER_RESET_TIME
+  );
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setWrongAnswerResetTime(wrongAnswerResetTime - 1);
+
+      if (wrongAnswerResetTime === 0) {
+        setWrongAnswerResetTime(WRONG_ANSWER_RESET_TIME);
+        changeChallenge();
+      }
+    }, STEP_TIME * 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [wrongAnswerResetTime, changeChallenge]);
+
+  const text = `Incorrect! The answer is ${answer}. You can try again in ${wrongAnswerResetTime} ${
+    wrongAnswerResetTime === 1 ? "second" : "seconds"
+  }.`;
+
+  return <p className={clsx(styles.result, styles.incorrect)}>{text}</p>;
 }

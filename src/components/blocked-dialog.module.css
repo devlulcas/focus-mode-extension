@@ -14,6 +14,7 @@
   max-width: 600px;
   min-height: clamp(200px, 50vh, 600px);
   width: 90vw;
+  margin: auto;
 
   border-radius: var(--fm-c-radius);
   background-color: var(--fm-c-surface);

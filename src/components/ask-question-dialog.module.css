@@ -110,7 +110,7 @@
 .result {
   font-size: 16px;
   font-weight: 500;
-  margin: 0;
+  width: 100%;
   padding: 12px 20px;
   border-radius: var(--fm-c-radius);
   text-align: center;
@@ -121,15 +121,13 @@
 }
 
 .correct {
-  background-color: var(--fm-c-primary-container);
-  color: var(--fm-c-on-primary-container);
-  border: 1px solid var(--fm-c-primary);
+  background-color: var(--fm-c-success);
+  color: var(--fm-c-on-success);
 }
 
 .incorrect {
-  background-color: var(--fm-c-error-container);
-  color: var(--fm-c-on-error-container);
-  border: 1px solid var(--fm-c-error);
+  background-color: var(--fm-c-error);
+  color: var(--fm-c-on-error);
 }
 
 .inputContainer {
