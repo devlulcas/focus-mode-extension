@@ -80,7 +80,6 @@ export function Ok<T>(value: T): Result<T, never> {
 }
 
 export function Err<E extends Error>(error: E): Result<never, E> {
-  console.log(error);
   return new Result(EmptyOk as never, error);
 }
 

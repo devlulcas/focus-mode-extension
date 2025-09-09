@@ -2,14 +2,31 @@ import clsx from "clsx";
 import { LucideTrash2 } from "lucide-react";
 import React, { useState } from "react";
 import { defaultFavicon } from "../model/favicon.js";
+import { i18n, type Dictionary } from "../model/i18n.ts";
 import type { Website } from "../model/website.js";
 import {
   deleteBlockedWebsite,
   toggleBlockedWebsite,
 } from "../store/blocked-websites.js";
+import { useI18n } from "../store/i18n.tsx";
 import { useGlobalAskQuestionDialog } from "./ask-question-dialog.js";
 import styles from "./blocked-website-list-item.module.css";
 import { Button } from "./button.js";
+
+const dictionary = {
+  delete: {
+    [i18n.en.tag]: "Delete",
+    [i18n.pt.tag]: "Deletar",
+  },
+  unblock: {
+    [i18n.en.tag]: "Unblock",
+    [i18n.pt.tag]: "Desbloquear",
+  },
+  block: {
+    [i18n.en.tag]: "Block",
+    [i18n.pt.tag]: "Bloquear",
+  },
+} as const satisfies Dictionary;
 
 export function BlockedWebsiteListItem({ website }: { website: Website }) {
   return (
@@ -54,7 +71,7 @@ function Favicon({ website }: { website: Website }) {
 
 function DeleteButton({ website }: { website: Website }) {
   const ask = useGlobalAskQuestionDialog();
-
+  const text = useI18n(dictionary);
   const handleClick = async () => {
     ask.wrap({
       fn: async () => {
@@ -68,7 +85,8 @@ function DeleteButton({ website }: { website: Website }) {
       onClick={handleClick}
       data-variant="destructive"
       data-size="sm"
-      aria-label="Delete"
+      aria-label={text.delete}
+      title={text.delete}
       data-icon
       style={{ borderRadius: "var(--fm-c-radius-sm)" }}
     >
@@ -79,7 +97,7 @@ function DeleteButton({ website }: { website: Website }) {
 
 function UnblockButton({ website }: { website: Website }) {
   const ask = useGlobalAskQuestionDialog();
-
+  const text = useI18n(dictionary);
   const handleClick = async () => {
     if (website.blocked) {
       ask.wrap({
@@ -97,10 +115,11 @@ function UnblockButton({ website }: { website: Website }) {
       onClick={handleClick}
       data-variant="tertiary"
       data-size="sm"
-      aria-label="Unblock"
+      aria-label={text.unblock}
+      title={text.unblock}
       style={{ borderRadius: "var(--fm-c-radius-sm)" }}
     >
-      {website.blocked ? "Unblock" : "Block"}
+      {website.blocked ? text.unblock : text.block}
     </Button>
   );
 }

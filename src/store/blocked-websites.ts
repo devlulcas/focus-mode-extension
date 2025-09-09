@@ -33,7 +33,6 @@ export function useSyncBlockedWebsites() {
 
   useEffect(() => {
     const unsubscribe = listenToBlockedWebsitesStorageChanges((changes) => {
-      console.log("listenToBlockedWebsitesStorageChanges", changes);
       setState(changes || []);
     });
 

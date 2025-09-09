@@ -1,12 +1,13 @@
 import React from "react";
 import { BlockedDialog } from "../../components/blocked-dialog.js";
 import { renderExtension } from "../../libs/render-extension.ts";
+import { I18nProvider } from "../../store/i18n.tsx";
 
 function App() {
   return (
-    <div>
+    <I18nProvider>
       <BlockedDialog />
-    </div>
+    </I18nProvider>
   );
 }
 

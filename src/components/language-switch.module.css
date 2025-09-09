@@ -1,0 +1,34 @@
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  --active-color: var(--fm-c-primary);
+  --inactive-color: var(--fm-c-secondary);
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.label {
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+
+  &[data-active="true"] {
+    color: var(--active-color);
+  }
+
+  &[data-active="false"] {
+    color: var(--inactive-color);
+  }
+}

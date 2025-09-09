@@ -1,5 +1,3 @@
-@import "../assets/css/theme.css";
-
 .button {
   background-color: var(--fm-button-color, var(--fm-c-primary));
   color: var(--fm-button-color-foreground, var(--fm-c-on-primary));
@@ -28,64 +26,63 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-}
 
-/* Variants */
-.button[data-variant="primary"] {
-  --fm-button-color: var(--fm-c-primary);
-  --fm-button-color-foreground: var(--fm-c-on-primary);
-}
+  /* Color variants */
+  &[data-variant="primary"] {
+    --fm-button-color: var(--fm-c-primary);
+    --fm-button-color-foreground: var(--fm-c-on-primary);
+  }
 
-.button[data-variant="secondary"] {
-  --fm-button-color: var(--fm-c-secondary);
-  --fm-button-color-foreground: var(--fm-c-on-secondary);
-}
+  &[data-variant="secondary"] {
+    --fm-button-color: var(--fm-c-secondary);
+    --fm-button-color-foreground: var(--fm-c-on-secondary);
+  }
 
-.button[data-variant="tertiary"] {
-  --fm-button-color: var(--fm-c-tertiary);
-  --fm-button-color-foreground: var(--fm-c-on-tertiary);
-}
+  &[data-variant="tertiary"] {
+    --fm-button-color: var(--fm-c-tertiary);
+    --fm-button-color-foreground: var(--fm-c-on-tertiary);
+  }
 
-.button[data-variant="destructive"] {
-  --fm-button-color: var(--fm-c-destructive);
-  --fm-button-color-foreground: var(--fm-c-on-destructive);
-}
+  &[data-variant="destructive"] {
+    --fm-button-color: var(--fm-c-destructive);
+    --fm-button-color-foreground: var(--fm-c-on-destructive);
+  }
 
-/* Sizes */
-.button[data-size="sm"] {
-  --fm-button-height: 36px;
-}
+  /* Sizes */
+  &[data-size="sm"] {
+    --fm-button-height: 36px;
+  }
 
-.button[data-size="md"] {
-  --fm-button-height: 46px;
-}
+  &[data-size="md"] {
+    --fm-button-height: 46px;
+  }
 
-.button[data-size="lg"] {
-  --fm-button-height: 56px;
-}
+  &[data-size="lg"] {
+    --fm-button-height: 56px;
+  }
 
-.button[data-icon] {
-  padding-inline: 0;
-  aspect-ratio: 1 / 1;
-}
+  &[data-icon] {
+    padding-inline: 0;
+    aspect-ratio: 1 / 1;
+  }
 
-/* States */
+  /* States */
+  &:hover {
+    filter: brightness(0.9);
+  }
 
-.button:hover {
-  filter: brightness(0.9);
-}
+  &:active {
+    filter: brightness(0.8);
+  }
 
-.button:active {
-  filter: brightness(0.8);
-}
+  &[data-loading] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: brightness(0.5);
+  }
 
-.button[data-loading] {
-  opacity: 0.5;
-  cursor: not-allowed;
-  filter: brightness(0.5);
-}
-
-.button[data-error] {
-  --fm-button-color: var(--fm-c-error);
-  --fm-button-color-foreground: var(--fm-c-on-error);
+  &[data-error] {
+    --fm-button-color: var(--fm-c-error);
+    --fm-button-color-foreground: var(--fm-c-on-error);
+  }
 }

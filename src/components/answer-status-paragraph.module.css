@@ -1,0 +1,22 @@
+.result {
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: var(--fm-c-radius);
+  text-align: center;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.correct {
+  background-color: var(--fm-c-success);
+  color: var(--fm-c-on-success);
+}
+
+.incorrect {
+  background-color: var(--fm-c-error);
+  color: var(--fm-c-on-error);
+}
