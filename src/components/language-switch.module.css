@@ -1,10 +1,10 @@
-.switch {
+.switchWrapper {
   display: flex;
   align-items: center;
   gap: 8px;
 
-  --active-color: var(--fm-c-primary);
-  --inactive-color: var(--fm-c-secondary);
+  --active-color: var(--focus-mode-ext-c-primary);
+  --inactive-color: var(--focus-mode-ext-c-secondary);
 }
 
 .input {

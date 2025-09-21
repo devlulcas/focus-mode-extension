@@ -10,18 +10,8 @@
 }
 
 * {
+  font-family: var(--focus-mode-ext-font-sans);
   margin: 0;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    interpolate-size: allow-keywords;
-  }
-}
-
-body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
 }
 
 img,
@@ -60,9 +50,4 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
-}
-
-#root,
-#__next {
-  isolation: isolate;
 }

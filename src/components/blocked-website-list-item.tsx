@@ -88,7 +88,7 @@ function DeleteButton({ website }: { website: Website }) {
       aria-label={text.delete}
       title={text.delete}
       data-icon
-      style={{ borderRadius: "var(--fm-c-radius-sm)" }}
+      style={{ borderRadius: "var(--focus-mode-ext-c-radius-sm)" }}
     >
       <LucideTrash2 size={16} />
     </Button>
@@ -117,7 +117,7 @@ function UnblockButton({ website }: { website: Website }) {
       data-size="sm"
       aria-label={text.unblock}
       title={text.unblock}
-      style={{ borderRadius: "var(--fm-c-radius-sm)" }}
+      style={{ borderRadius: "var(--focus-mode-ext-c-radius-sm)" }}
     >
       {website.blocked ? text.unblock : text.block}
     </Button>

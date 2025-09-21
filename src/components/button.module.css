@@ -1,16 +1,22 @@
 .button {
-  background-color: var(--fm-button-color, var(--fm-c-primary));
-  color: var(--fm-button-color-foreground, var(--fm-c-on-primary));
+  background-color: var(
+    --focus-mode-ext-button-color,
+    var(--focus-mode-ext-c-primary)
+  );
+  color: var(
+    --focus-mode-ext-button-color-foreground,
+    var(--focus-mode-ext-c-on-primary)
+  );
 
-  padding-inline: var(--fm-button-px, 16px);
-  min-height: var(--fm-button-height, 46px);
+  padding-inline: var(--focus-mode-ext-button-px, 16px);
+  min-height: var(--focus-mode-ext-button-height, 46px);
 
-  border-radius: var(--fm-c-radius);
+  border-radius: var(--focus-mode-ext-c-radius);
   border: none;
 
-  font-size: var(--fm-button-font-size, 14px);
-  font-weight: var(--fm-button-font-weight, 500);
-  line-height: var(--fm-button-line-height, 1);
+  font-size: var(--focus-mode-ext-button-font-size, 14px);
+  font-weight: var(--focus-mode-ext-button-font-weight, 500);
+  line-height: var(--focus-mode-ext-button-line-height, 1);
 
   appearance: none;
   text-decoration: none;
@@ -29,36 +35,44 @@
 
   /* Color variants */
   &[data-variant="primary"] {
-    --fm-button-color: var(--fm-c-primary);
-    --fm-button-color-foreground: var(--fm-c-on-primary);
+    --focus-mode-ext-button-color: var(--focus-mode-ext-c-primary);
+    --focus-mode-ext-button-color-foreground: var(
+      --focus-mode-ext-c-on-primary
+    );
   }
 
   &[data-variant="secondary"] {
-    --fm-button-color: var(--fm-c-secondary);
-    --fm-button-color-foreground: var(--fm-c-on-secondary);
+    --focus-mode-ext-button-color: var(--focus-mode-ext-c-secondary);
+    --focus-mode-ext-button-color-foreground: var(
+      --focus-mode-ext-c-on-secondary
+    );
   }
 
   &[data-variant="tertiary"] {
-    --fm-button-color: var(--fm-c-tertiary);
-    --fm-button-color-foreground: var(--fm-c-on-tertiary);
+    --focus-mode-ext-button-color: var(--focus-mode-ext-c-tertiary);
+    --focus-mode-ext-button-color-foreground: var(
+      --focus-mode-ext-c-on-tertiary
+    );
   }
 
   &[data-variant="destructive"] {
-    --fm-button-color: var(--fm-c-destructive);
-    --fm-button-color-foreground: var(--fm-c-on-destructive);
+    --focus-mode-ext-button-color: var(--focus-mode-ext-c-destructive);
+    --focus-mode-ext-button-color-foreground: var(
+      --focus-mode-ext-c-on-destructive
+    );
   }
 
   /* Sizes */
   &[data-size="sm"] {
-    --fm-button-height: 36px;
+    --focus-mode-ext-button-height: 36px;
   }
 
   &[data-size="md"] {
-    --fm-button-height: 46px;
+    --focus-mode-ext-button-height: 46px;
   }
 
   &[data-size="lg"] {
-    --fm-button-height: 56px;
+    --focus-mode-ext-button-height: 56px;
   }
 
   &[data-icon] {
@@ -82,7 +96,7 @@
   }
 
   &[data-error] {
-    --fm-button-color: var(--fm-c-error);
-    --fm-button-color-foreground: var(--fm-c-on-error);
+    --focus-mode-ext-button-color: var(--focus-mode-ext-c-error);
+    --focus-mode-ext-button-color-foreground: var(--focus-mode-ext-c-on-error);
   }
 }

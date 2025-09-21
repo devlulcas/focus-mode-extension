@@ -16,12 +16,12 @@
 .question {
   font-size: 18px;
   font-weight: 500;
-  color: var(--fm-c-on-surface-variant);
+  color: var(--focus-mode-ext-c-on-surface-variant);
   margin: 0;
   padding: 16px;
-  background-color: var(--fm-c-surface-container);
-  border: 2px solid var(--fm-c-outline-variant);
-  border-radius: var(--fm-c-radius);
+  background-color: var(--focus-mode-ext-c-surface-container);
+  border: 2px solid var(--focus-mode-ext-c-outline-variant);
+  border-radius: var(--focus-mode-ext-c-radius);
   font-family: "Courier New", monospace;
   display: flex;
   align-items: center;

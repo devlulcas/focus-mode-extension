@@ -3,7 +3,7 @@
   font-weight: 500;
   width: 100%;
   padding: 12px 20px;
-  border-radius: var(--fm-c-radius);
+  border-radius: var(--focus-mode-ext-c-radius);
   text-align: center;
   min-height: 20px;
   display: flex;
@@ -12,11 +12,11 @@
 }
 
 .correct {
-  background-color: var(--fm-c-success);
-  color: var(--fm-c-on-success);
+  background-color: var(--focus-mode-ext-c-success);
+  color: var(--focus-mode-ext-c-on-success);
 }
 
 .incorrect {
-  background-color: var(--fm-c-error);
-  color: var(--fm-c-on-error);
+  background-color: var(--focus-mode-ext-c-error);
+  color: var(--focus-mode-ext-c-on-error);
 }

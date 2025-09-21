@@ -15,12 +15,12 @@
   width: 90vw;
   min-height: 300px;
 
-  border-radius: var(--fm-c-radius);
-  background-color: var(--fm-c-surface);
-  color: var(--fm-c-on-surface);
+  border-radius: var(--focus-mode-ext-c-radius);
+  background-color: var(--focus-mode-ext-c-surface);
+  color: var(--focus-mode-ext-c-on-surface);
   animation: slideInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 32px 64px -12px var(--fm-c-shadow),
-    0 0 0 1px var(--fm-c-outline-variant);
+  box-shadow: 0 32px 64px -12px var(--focus-mode-ext-c-shadow),
+    0 0 0 1px var(--focus-mode-ext-c-outline-variant);
 
   &:focus-visible,
   &:focus-within,
@@ -29,13 +29,21 @@
   }
 
   &::backdrop {
-    --start: color-mix(in srgb, var(--fm-c-surface) 80%, transparent);
-    --middle: color-mix(
+    --start: color-mix(
       in srgb,
-      color-mix(in srgb, var(--fm-c-primary) 30%, black) 60%,
+      var(--focus-mode-ext-c-surface) 80%,
       transparent
     );
-    --end: color-mix(in srgb, var(--fm-c-tertiary) 50%, transparent);
+    --middle: color-mix(
+      in srgb,
+      color-mix(in srgb, var(--focus-mode-ext-c-primary) 30%, black) 60%,
+      transparent
+    );
+    --end: color-mix(
+      in srgb,
+      var(--focus-mode-ext-c-tertiary) 50%,
+      transparent
+    );
     backdrop-filter: blur(16px);
     background-image: radial-gradient(
       circle,
@@ -54,9 +62,9 @@
     height: 6px;
     background: linear-gradient(
       90deg,
-      var(--fm-c-primary),
-      var(--fm-c-secondary),
-      var(--fm-c-tertiary)
+      var(--focus-mode-ext-c-primary),
+      var(--focus-mode-ext-c-secondary),
+      var(--focus-mode-ext-c-tertiary)
     );
   }
 }
@@ -65,7 +73,7 @@
   .dialog {
     padding: 24px 20px;
     gap: 20px;
-    border-radius: var(--fm-c-radius);
+    border-radius: var(--focus-mode-ext-c-radius);
   }
 }
 
@@ -82,7 +90,7 @@
 
 @media (prefers-contrast: high) {
   .dialog {
-    border: 2px solid var(--fm-c-outline);
+    border: 2px solid var(--focus-mode-ext-c-outline);
   }
 }
 

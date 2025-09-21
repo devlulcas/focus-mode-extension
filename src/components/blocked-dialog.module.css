@@ -14,11 +14,11 @@
   margin: auto;
   position: fixed;
 
-  border-radius: var(--fm-c-radius);
-  background-color: var(--fm-c-surface);
+  border-radius: var(--focus-mode-ext-c-radius);
+  background-color: var(--focus-mode-ext-c-surface);
   animation: slideInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 32px 64px -12px var(--fm-c-shadow),
-    0 0 0 1px var(--fm-c-outline-variant);
+  box-shadow: 0 32px 64px -12px var(--focus-mode-ext-c-shadow),
+    0 0 0 1px var(--focus-mode-ext-c-outline-variant);
 
   &:focus-visible,
   &:focus-within,
@@ -28,7 +28,11 @@
 
   &::backdrop {
     backdrop-filter: blur(16px);
-    background-color: color-mix(in srgb, var(--fm-c-surface) 80%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--focus-mode-ext-c-surface) 80%,
+      transparent
+    );
   }
 
   &::before {
@@ -40,9 +44,9 @@
     height: 8px;
     background: linear-gradient(
       90deg,
-      var(--fm-c-primary),
-      var(--fm-c-secondary),
-      var(--fm-c-tertiary)
+      var(--focus-mode-ext-c-primary),
+      var(--focus-mode-ext-c-secondary),
+      var(--focus-mode-ext-c-tertiary)
     );
   }
 }
@@ -64,15 +68,15 @@
   margin: 0 auto;
   background: linear-gradient(
     135deg,
-    var(--fm-c-primary-container),
-    var(--fm-c-secondary-container)
+    var(--focus-mode-ext-c-primary-container),
+    var(--focus-mode-ext-c-secondary-container)
   );
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 32px var(--fm-c-primary) 20,
-    0 0 0 1px var(--fm-c-outline-variant);
+  box-shadow: 0 8px 32px var(--focus-mode-ext-c-primary) 20,
+    0 0 0 1px var(--focus-mode-ext-c-outline-variant);
   position: relative;
 
   &::before {
@@ -82,8 +86,8 @@
     border-radius: 50%;
     background: linear-gradient(
       135deg,
-      var(--fm-c-primary),
-      var(--fm-c-secondary)
+      var(--focus-mode-ext-c-primary),
+      var(--focus-mode-ext-c-secondary)
     );
     z-index: -1;
     opacity: 0.3;
@@ -92,15 +96,15 @@
   & .icon {
     width: 40px;
     height: 40px;
-    color: var(--fm-c-on-primary-container);
-    filter: drop-shadow(0 2px 4px var(--fm-c-shadow));
+    color: var(--focus-mode-ext-c-on-primary-container);
+    filter: drop-shadow(0 2px 4px var(--focus-mode-ext-c-shadow));
   }
 }
 
 .title {
   font-size: 24px;
   font-weight: 600;
-  color: var(--fm-c-on-surface);
+  color: var(--focus-mode-ext-c-on-surface);
   margin: 0;
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -108,7 +112,7 @@
 
 .description {
   font-size: 16px;
-  color: var(--fm-c-on-surface-variant);
+  color: var(--focus-mode-ext-c-on-surface-variant);
   line-height: 1.5;
   margin: 0;
   max-width: 320px;
@@ -119,7 +123,7 @@
 
 @media (prefers-contrast: high) {
   .dialog {
-    border: 2px solid var(--fm-c-outline);
+    border: 2px solid var(--focus-mode-ext-c-outline);
   }
 }
 

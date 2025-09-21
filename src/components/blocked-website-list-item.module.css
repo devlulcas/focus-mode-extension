@@ -4,24 +4,24 @@
   align-items: center;
   gap: 16px;
   padding: var(--padding);
-  background-color: var(--fm-c-surface-container);
-  border-radius: var(--fm-c-radius);
-  border: 1px solid var(--fm-c-outline-variant);
+  background-color: var(--focus-mode-ext-c-surface-container);
+  border-radius: var(--focus-mode-ext-c-radius);
+  border: 1px solid var(--focus-mode-ext-c-outline-variant);
   margin-bottom: 8px;
   transition: all 0.2s ease-in-out;
   position: relative;
   overflow: hidden;
 
   &:hover {
-    background-color: var(--fm-c-surface-container-high);
-    border-color: var(--fm-c-outline);
-    box-shadow: 0 2px 8px var(--fm-c-shadow);
+    background-color: var(--focus-mode-ext-c-surface-container-high);
+    border-color: var(--focus-mode-ext-c-outline);
+    box-shadow: 0 2px 8px var(--focus-mode-ext-c-shadow);
     transform: translateY(-1px);
   }
 
   &:active {
     transform: translateY(0);
-    box-shadow: 0 1px 4px var(--fm-c-shadow);
+    box-shadow: 0 1px 4px var(--focus-mode-ext-c-shadow);
   }
 
   /* Ripple effect */
@@ -33,7 +33,7 @@
     width: 0;
     height: 0;
     border-radius: 50%;
-    background-color: var(--fm-c-primary);
+    background-color: var(--focus-mode-ext-c-primary);
     opacity: 0;
     transform: translate(-50%, -50%);
     transition: width 0.3s ease-out, height 0.3s ease-out, opacity 0.3s ease-out;
@@ -48,7 +48,7 @@
 
   /* Focus styles for accessibility */
   &:focus-within {
-    outline: 2px solid var(--fm-c-primary);
+    outline: 2px solid var(--focus-mode-ext-c-primary);
     outline-offset: 2px;
   }
 }
@@ -56,14 +56,14 @@
 .favicon {
   width: 40px;
   height: 40px;
-  border-radius: var(--fm-c-radius-sm);
+  border-radius: var(--focus-mode-ext-c-radius-sm);
   object-fit: cover;
-  border: 1px solid var(--fm-c-outline-variant);
+  border: 1px solid var(--focus-mode-ext-c-outline-variant);
   flex-shrink: 0;
-  background-color: var(--fm-c-surface-container-low);
+  background-color: var(--focus-mode-ext-c-surface-container-low);
 
   &.defaultFavicon {
-    color: var(--fm-c-on-surface-variant);
+    color: var(--focus-mode-ext-c-on-surface-variant);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,7 +83,7 @@
 .title {
   font-size: 16px;
   font-weight: 500;
-  color: var(--fm-c-on-surface);
+  color: var(--focus-mode-ext-c-on-surface);
   margin: 0;
   line-height: 1.25;
   overflow: hidden;
@@ -93,7 +93,7 @@
 
 .domain {
   font-size: 14px;
-  color: var(--fm-c-on-surface-variant);
+  color: var(--focus-mode-ext-c-on-surface-variant);
   margin: 0;
   line-height: 1.25;
   overflow: hidden;
@@ -110,23 +110,23 @@
 }
 
 .blocked {
-  background-color: var(--fm-c-surface-container-low);
-  border-color: var(--fm-c-outline);
+  background-color: var(--focus-mode-ext-c-surface-container-low);
+  border-color: var(--focus-mode-ext-c-outline);
   opacity: 0.7;
 
   &:hover {
-    background-color: var(--fm-c-surface-container);
-    border-color: var(--fm-c-outline);
+    background-color: var(--focus-mode-ext-c-surface-container);
+    border-color: var(--focus-mode-ext-c-outline);
     opacity: 0.8;
   }
 
   & .title {
-    color: var(--fm-c-on-surface);
+    color: var(--focus-mode-ext-c-on-surface);
     text-decoration: line-through;
   }
 
   & .domain {
-    color: var(--fm-c-on-surface-variant);
+    color: var(--focus-mode-ext-c-on-surface-variant);
     opacity: 0.6;
   }
 }

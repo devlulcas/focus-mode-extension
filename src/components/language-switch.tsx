@@ -16,7 +16,7 @@ export function LanguageSwitch() {
   const id = useId();
 
   return (
-    <label className={styles.switch} htmlFor={id} title={language}>
+    <label className={styles.switchWrapper} htmlFor={id} title={language}>
       <input
         type="checkbox"
         checked={isPortuguese}

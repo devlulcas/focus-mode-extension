@@ -10,5 +10,15 @@
   },
   "description": "Block distracting websites and stay focused.",
   "permissions": ["storage", "tabs", "scripting", "activeTab"],
-  "host_permissions": ["*://*/*"]
+  "host_permissions": ["*://*/*"],
+  "action": {
+    "default_popup": "popup/index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/index.js"],
+      "css": ["content/index.css", "css/theme.css"]
+    }
+  ]
 }
